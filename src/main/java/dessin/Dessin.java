@@ -4,6 +4,9 @@ import aspects.MyLog;
 import aspects.SecuredByAspect;
 import figure.Figure;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,41 +15,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-
 public class Dessin {
+    @Autowired
     private ITraitement traitement;
     private List<Figure> figures=new ArrayList<Figure>();
 
-    @MyLog
     public void traiter(){
         for(Figure figure: figures)
             traitement.traiter(figure);
     }
 
     @SecuredByAspect(roles = {"ADMIN"})
-    @MyLog
     public void ajouter(Figure figure){
         figures.add(figure);
     }
 
     @SecuredByAspect(roles = {"ADMIN"})
-    @MyLog
     public void supprimer(Figure figure){
         figures.remove(figure);
     }
 
-    @MyLog
+    @SecuredByAspect(roles = {"ADMIN","USER"})
     public void afficher(){
         for(Figure figure: figures)
             System.out.println(figure);
     }
-    @MyLog
+
+    @SecuredByAspect(roles = {"ADMIN"})
     public void serialiser() throws Exception{
-        System.out.println("serialisation of data");
-        File file =new File("Path");
-        FileOutputStream fileOutputStream=new FileOutputStream(file);
-        ObjectOutputStream objectOutputStream=new ObjectOutputStream(fileOutputStream);
-        for(Figure figure : figures)
-            objectOutputStream.writeObject(figure);
+        File file=new File("dessin.txt");
+
+        FileOutputStream fileOutputStream= null;
+        ObjectOutputStream objectOutputStream=null;
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            objectOutputStream=new ObjectOutputStream(fileOutputStream);
+            for(Figure f : figures){
+                objectOutputStream.writeObject(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

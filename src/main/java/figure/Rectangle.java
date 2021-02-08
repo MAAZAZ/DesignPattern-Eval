@@ -29,17 +29,14 @@ public class Rectangle extends Figure {
         System.out.println("color de conteur : "+cc+" + color de remplissage : "+cs+" + Epaisseur : "+ec);
     }
 
-    @MyLog
     public double surface() {
         return largeur*hauteur;
     }
 
-    @MyLog
     public double perimetre() {
         return 2*(largeur+hauteur);
     }
 
-    @MyLog
     public void draw() {
         System.out.println(this.toString());
     }

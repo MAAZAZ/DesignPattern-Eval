@@ -28,17 +28,14 @@ public class Cercle extends Figure {
         System.out.println("color de conteur : "+cc+" + color de remplissage : "+cs+" + Epaisseur : "+ec);
     }
 
-    @MyLog
     public double surface() {
         return Math.PI*rayon*rayon;
     }
 
-    @MyLog
     public double perimetre() {
         return 2*Math.PI*rayon;
     }
 
-    @MyLog
     public void draw(){
         System.out.println(this.toString());
     }
