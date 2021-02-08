@@ -1,3 +1,4 @@
+import aspects.MyLog;
 import dessin.Dessin;
 import dessin.TraitementImpl1;
 import entities.Point;
@@ -7,12 +8,16 @@ import figure.Groupe;
 import figure.Rectangle;
 import observable.IParametrage;
 import observable.Parametrage;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         aspects.ApplicationContext.authenticateUser("root","1234",new String[]{"ADMIN"});
+        new AnnotationConfigApplicationContext(AppConfig.class);
         Dessin dessin=new Dessin();
         Cercle cercle=new Cercle(new Point(1,1), 5.5);
         System.out.println("(Surface : "+cercle.surface()+" , Périmètre : "+cercle.perimetre()+")");
@@ -26,9 +31,7 @@ public class Main {
         System.out.println("(Surface : "+groupe1.surface()+" , Périmètre : "+groupe1.perimetre()+")");
         IParametrage parametrage=new Parametrage(fs,10, 20, 30);
         parametrage.notifyAllFigures();
-
         dessin.setTraitement(new TraitementImpl1());
         dessin.traiter();
-
     }
 }

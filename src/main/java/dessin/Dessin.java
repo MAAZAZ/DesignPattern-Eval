@@ -1,6 +1,6 @@
 package dessin;
 
-import aspects.Log;
+import aspects.MyLog;
 import aspects.SecuredByAspect;
 import figure.Figure;
 import lombok.Data;
@@ -17,28 +17,30 @@ public class Dessin {
     private ITraitement traitement;
     private List<Figure> figures=new ArrayList<Figure>();
 
+    @MyLog
     public void traiter(){
         for(Figure figure: figures)
             traitement.traiter(figure);
     }
 
-    @SecuredByAspect(roles = {"ADMIN","USER"})
-    @Log
+    @SecuredByAspect(roles = {"ADMIN"})
+    @MyLog
     public void ajouter(Figure figure){
         figures.add(figure);
     }
 
-    @SecuredByAspect(roles = {"ADMIN","USER"})
-    @Log
+    @SecuredByAspect(roles = {"ADMIN"})
+    @MyLog
     public void supprimer(Figure figure){
         figures.remove(figure);
     }
 
+    @MyLog
     public void afficher(){
         for(Figure figure: figures)
             System.out.println(figure);
     }
-
+    @MyLog
     public void serialiser() throws Exception{
         System.out.println("serialisation of data");
         File file =new File("Path");

@@ -2,6 +2,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(value = {"dessin","entities","figure","observable","aspects"})
+@ComponentScan(value = {"aspects","dessin","entities","figure","observable"})
 public class AppConfig {
 }

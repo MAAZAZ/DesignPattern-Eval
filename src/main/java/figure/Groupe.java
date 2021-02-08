@@ -1,13 +1,12 @@
 package figure;
 
-import aspects.Log;
+import aspects.MyLog;
 import aspects.SecuredByAspect;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import observable.IParametrage;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ public class Groupe extends Figure {
     private List<Figure> figures=new ArrayList<Figure>();
 
     @SecuredByAspect(roles = {"ADMIN","USER"})
+    @MyLog
     public void addFigure(Figure figure){
         figures.add(figure);
     }
@@ -35,6 +35,7 @@ public class Groupe extends Figure {
         }
     }
 
+    @MyLog
     public double surface() {
         double s=0;
         for(Figure figure: figures)
@@ -42,6 +43,7 @@ public class Groupe extends Figure {
         return s;
     }
 
+    @MyLog
     public double perimetre() {
         double s=0;
         for(Figure figure: figures)

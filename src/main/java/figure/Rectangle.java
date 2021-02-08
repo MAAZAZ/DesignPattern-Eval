@@ -1,6 +1,6 @@
 package figure;
 
-import aspects.Log;
+import aspects.MyLog;
 import entities.Point;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,14 +29,17 @@ public class Rectangle extends Figure {
         System.out.println("color de conteur : "+cc+" + color de remplissage : "+cs+" + Epaisseur : "+ec);
     }
 
+    @MyLog
     public double surface() {
         return largeur*hauteur;
     }
 
+    @MyLog
     public double perimetre() {
         return 2*(largeur+hauteur);
     }
 
+    @MyLog
     public void draw() {
         System.out.println(this.toString());
     }

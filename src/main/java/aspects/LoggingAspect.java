@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -20,13 +19,13 @@ public class LoggingAspect {
     private Logger logger=Logger.getLogger(Logging.class.getName());
 
     public LoggingAspect() throws Exception{
+        System.out.println("************");
         logger.addHandler(new FileHandler("log.xml"));
         logger.setUseParentHandlers(false);
     }
 
-    @Around(value = "@annotation(Log)")
+    @Around(value = "@annotation(MyLog)")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("---------------");
         t1=System.currentTimeMillis();
         logger.info("Avant "+ joinPoint.getSignature());
         Object object=joinPoint.proceed();

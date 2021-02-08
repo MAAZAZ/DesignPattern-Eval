@@ -1,6 +1,6 @@
 package figure;
 
-import aspects.Log;
+import aspects.MyLog;
 import entities.Point;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +16,8 @@ import java.io.Serializable;
 @ToString
 public abstract class Figure implements Serializable {
     protected Point point;
-    @Log
     public abstract void update(IParametrage Parametrage);
-    @Log
     public abstract double surface();
-    @Log
     public abstract double perimetre();
-    @Log
     public abstract void draw();
 }
